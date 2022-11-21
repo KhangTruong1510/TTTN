@@ -27,7 +27,7 @@ class MovieController extends Controller
         if (!is_dir($path)) {
             mkdir($path,0777,true);
             }
-        File::put($path. 'movies. json' ,json_encode($list));
+        File::put($path.'movies.json' ,json_encode($list));
 
 
         return view('admincp.movie.index', compact('list'));
@@ -56,8 +56,9 @@ class MovieController extends Controller
     {
         $category = Category::pluck('title','id');
         $genre = Genre::pluck('title','id');
+        $list_genre = Genre::all();
         $country = Country::pluck('title','id');
-        return view('admincp.movie.form', compact('category','genre','country'));
+        return view('admincp.movie.form', compact('category','genre','country','list_genre'));
     }
 
     /**

@@ -51,20 +51,28 @@
                <div class="col-md-5 col-sm-6 halim-search-form hidden-xs">
                   <div class="header-nav">
                      <div class="col-xs-12">
-                        <form id="search-form-pc" name="halimForm" role="search" action="" method="GET">
+                        <style type="text/css">
+                           ul#result {
+                              position: absolute;
+                              z-index: 9999;
+                              background: #1b2d3c;
+                              width: 94%;
+                              padding: 10px;
+                              margin: 1px;
+                           }
+                        </style>
 
-                           <div class="form-group">
+                           <div class="form-group form-timkiem">
                               <div class="input-group col-xs-12">
-                                 <input id="timkiem" type="text" name="s" class="form-control" placeholder="Tìm kiếm..." autocomplete="off" required>
-                                 
+                                 <form action="{{route('tim-kiem')}}" method="GET">
+                                 <input id="timkiem" type="text" name="search" class="form-control" placeholder="Tìm kiếm..." autocomplete="off" required>
+                                 <button class="btn btn-primary"> Tìm kiếm</button>
+                                 </form>
                               </div>
                            </div>
 
-                        </form>
-
-                        <ul class="ui-autocomplete ajax-results hidden" id = "result" style="display: none;">
-                        </ul>
-
+                        <ul class="list-group" id = "result" style="display: none"></ul>
+                        
                      </div>
 
 
@@ -155,7 +163,7 @@
                   <div class="footer-logo">
                      <img class="img-responsive" src="https://img.favpng.com/9/23/19/movie-logo-png-favpng-nRr1DmYq3SNYSLN8571CHQTEG.jpg" alt="Phim hay 2021- Xem phim hay nhất" />
                   </div>
-                  Liên hệ QC: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e5958d8c888d849ccb868aa58288848c89cb868a88">[email&#160;protected]</a>
+                  Liên hệ : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e5958d8c888d849ccb868aa58288848c89cb868a88">[email&#160;protected]</a>
                </div>
             </div>
          </div>
@@ -171,15 +179,43 @@
       <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v15.0" nonce="TNdEKear"></script>
 
       <script type="text/javascript">
-         $(document).ready(function() {
+        
+
+         $(document).ready(function(){
             $('#timkiem').keyup(function(){
+              
                $('#result').html('');
-               var  search = $('#timkiem').val();
-               alert(search);
+               var search = $('#timkiem').val();
+               
+               if(search!=''){
+                  $('#result').css('display', 'inherit');
+                  var expresstion = new RegExp(search, "i");
+                 
+                  $.getJSON('/json/movies.json', function(data){
+                     $.each(data, function(key, value){
+                        if (value.title.search(expresstion) != -1 || value.description.search(expresstion) !=-1){
+                           
+                           $('#result').append('<li style="cursor:pointer; display: flex; max-height: 200px;" class="list-group-item link-class"><img src="uploads/movie/'+value.image+'" width="100" class="" /><div style="flex-direction: column; margin-left: 2px;"><h4 width="100%">'+value.title+'</h4><span style="display: -webkit-box; max-height: 8.2rem; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal; -webkit-line-clamp: 5; line-height: 1.6rem;" class="text-muted">| '+value.description+'</span></div></li>');
+                        }
+                        
+                     });
+                  })
+                  
+               }else 
+                  $('#result').css('display', 'none');
             })
+            $('#result').on('click', 'li',function(){
+               var click_text = $(this).text().split('|');
+
+               $('#timkiem').val($.trim(click_text[0]));
+
+               $('#result').html('');
+            });
          })
       </script>
-         
+      <!-- <li class="list-group-item" style="cursor:pointer"> phim da tim</li>
+      <li style="cursor:pointer; display: flex; max-height: 200px;" class="list-group-item link-class"><img src="uploads/movie/'+value.image+'" width="100" class="" /><div style="flex-direction: column; margin-left: 2px;"><h4 width="100%">'+value.title+'</h4><span style="display: -webkit-box; max-height: 8.2rem; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal; -webkit-line-clamp: 5; line-height: 1.6rem;" class="text-muted">| '+value.description+'</span></div></li> -->
+ 
    
       <style>#overlay_mb{position:fixed;display:none;width:100%;height:100%;top:0;left:0;right:0;bottom:0;background-color:rgba(0, 0, 0, 0.7);z-index:99999;cursor:pointer}#overlay_mb .overlay_mb_content{position:relative;height:100%}.overlay_mb_block{display:inline-block;position:relative}#overlay_mb .overlay_mb_content .overlay_mb_wrapper{width:600px;height:auto;position:relative;left:50%;top:50%;transform:translate(-50%, -50%);text-align:center}#overlay_mb .overlay_mb_content .cls_ov{color:#fff;text-align:center;cursor:pointer;position:absolute;top:5px;right:5px;z-index:999999;font-size:14px;padding:4px 10px;border:1px solid #aeaeae;background-color:rgba(0, 0, 0, 0.7)}#overlay_mb img{position:relative;z-index:999}@media only screen and (max-width: 768px){#overlay_mb .overlay_mb_content .overlay_mb_wrapper{width:400px;top:3%;transform:translate(-50%, 3%)}}@media only screen and (max-width: 400px){#overlay_mb .overlay_mb_content .overlay_mb_wrapper{width:310px;top:3%;transform:translate(-50%, 3%)}}</style>
     

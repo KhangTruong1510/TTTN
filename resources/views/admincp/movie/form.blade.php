@@ -65,8 +65,13 @@
                             {!! Form::select('country_id', $country, isset($movie) ? $movie->country_id : '', ['class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('Genre', 'Thể loại', []) !!}
-                            {!! Form::select('genre_id', $genre, isset($movie) ? $movie->genre_id : '', ['class'=>'form-control']) !!}
+                            {!! Form::label('Genre', 'Thể loại', []) !!}<br>
+                            <!-- {!! Form::select('genre_id', $genre, isset($movie) ? $movie->genre_id : '', ['class'=>'form-control']) !!} 
+                        -->
+                            @foreach($list_genre as $key => $gen)
+                            {!! Form::checkbox('genre[]', $gen->id) !!}
+                            {!! Form::label('genre',$gen->title)    !!}
+                            @endforeach
                         </div>
                         <div class="form-group">
                             {!! Form::label('Hot', 'Phim hot', []) !!}

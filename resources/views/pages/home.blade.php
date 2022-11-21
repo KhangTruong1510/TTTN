@@ -173,57 +173,9 @@
                      </li>
                      </ul>
                      <div class="tab-content" id="pills-tabContent">
-                     <div class="tab-pane fade show " id="ngay" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <div class="item post-37176">
-                              <a href="chitiet.php" title="CHỊ MƯỜI BA: BA NGÀY SINH TỬ">
-                                 <div class="item-link">
-                                    <img src="" class="lazy post-thumb" alt="CHỊ MƯỜI BA: BA NGÀY SINH TỬ" title="CHỊ MƯỜI BA: BA NGÀY SINH TỬ" />
-                                    <span class="is_trailer">Trailer</span>
-                                 </div>
-                                 <p class="title">ngày</p>
-                              </a>
-                              <div class="viewsCount" style="color: #9d9d9d;">3.2K lượt xem</div>
-                              <div style="float: left;">
-                                 <span class="user-rate-image post-large-rate stars-large-vang" style="display: block;/* width: 100%; */">
-                                 <span style="width: 0%"></span>
-                                 </span>
-                              </div>
-                           </div>
-                     </div>
-                     <div class="tab-pane fade" id="tuan" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <div class="item post-37176">
-                              <a href="chitiet.php" title="CHỊ MƯỜI BA: BA NGÀY SINH TỬ">
-                                 <div class="item-link">
-                                    <img src="" class="lazy post-thumb" alt="CHỊ MƯỜI BA: BA NGÀY SINH TỬ" title="CHỊ MƯỜI BA: BA NGÀY SINH TỬ" />
-                                    <span class="is_trailer">Trailer</span>
-                                 </div>
-                                 <p class="title">tuần</p>
-                              </a>
-                              <div class="viewsCount" style="color: #9d9d9d;">3.2K lượt xem</div>
-                              <div style="float: left;">
-                                 <span class="user-rate-image post-large-rate stars-large-vang" style="display: block;/* width: 100%; */">
-                                 <span style="width: 0%"></span>
-                                 </span>
-                              </div>
-                           </div>
-                     </div>
-                     <div class="tab-pane fade" id="thang" role="tabpanel" aria-labelledby="pills-contact-tab">
-                        <div class="item post-37176">
-                              <a href="chitiet.php" title="CHỊ MƯỜI BA: BA NGÀY SINH TỬ">
-                                 <div class="item-link">
-                                    <img src="" class="lazy post-thumb" alt="CHỊ MƯỜI BA: BA NGÀY SINH TỬ" title="CHỊ MƯỜI BA: BA NGÀY SINH TỬ" />
-                                    <span class="is_trailer">Trailer</span>
-                                 </div>
-                                 <p class="title">tháng</p>
-                              </a>
-                              <div class="viewsCount" style="color: #9d9d9d;">3.2K lượt xem</div>
-                              <div style="float: left;">
-                                 <span class="user-rate-image post-large-rate stars-large-vang" style="display: block;/* width: 100%; */">
-                                 <span style="width: 0%"></span>
-                                 </span>
-                              </div>
-                           </div>
-                     </div>
+                    
+                    
+                     
                      </div>
                   <div class="clearfix"></div>
                </div>
