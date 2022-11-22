@@ -136,6 +136,26 @@
                 })
             })
             </script>
+
+            <!-- thay ddoi tap phim -->
+        <script type="text/javascript">
+            $('.select-movie').change(function(){
+
+                
+                var id = $(this).val();
+                
+
+                $.ajax({
+                    url:"{{route('select-movie')}}",
+                    method: "GET",
+                    data:{id:id},
+                    success:function(data){
+                        $('#movie_show').html(data);
+                    }
+                })
+            })
+            </script>
+
     <script type="text/javascript">
     $(document).ready( function () {
         $('#tablephim').DataTable();

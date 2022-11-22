@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Country;
 use App\Models\Movie;
+use App\Models\Movie_Genre;
 use App\Models\Episode;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\DB as FacadesDB;
@@ -52,7 +53,14 @@ class IndexController extends Controller
         $country = Country::orderBy('id','DESC')->get();
 
         $genre_slug = Genre::where('slug',$slug)->first();
-        $movie = Movie::where('genre_id',$genre_slug->id)->orderBy('ngaycapnhat', 'DESC')->paginate(40);
+        
+        //phim nhieu the loai
+        $movie_genre = Movie_Genre::where('genre_id',$genre_slug->id)->get();
+        $many_genre = [];
+        foreach($movie_genre as $key =>$movi){
+            $many_genre[] = $movi->movie_id;
+        }
+        $movie = Movie::whereIn('id',$many_genre)->orderBy('ngaycapnhat', 'DESC')->paginate(40);
     	return view('pages.genre', compact('category','genre','country','genre_slug','movie'));
     }
     public function country($slug){
@@ -68,12 +76,35 @@ class IndexController extends Controller
         $category = Category::orderBy('position','ASC')->where('status',1)->get();
         $genre = Genre::orderBy('id','DESC')->get();
         $country = Country::orderBy('id','DESC')->get();
-        $movie = Movie::with('category','genre','country')->where('slug',$slug)->where('status',1)->first();
+       
+        $movie = Movie::with('category','genre','country','movie_genre')->where('slug',$slug)->where('status',1)->first();
+        $episode_tapdau = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode','ASC')->take(1)->first();
+        
         $related = Movie::with('category','genre','country')->where('category_id',$movie->category->id)->whereNotIn('slug',[$slug])->get();
-    	return view('pages.movie', compact('category','genre','country','movie','related'));
+    	
+        $episode = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode', 'DESC')->take(3)->get();
+        return view('pages.movie', compact('category','genre','country','movie','related','episode','episode_tapdau'));
     }
-    public function watch(){
-    	return view('pages.watch');
+    public function watch($slug, $tap){
+       
+        
+        $category = Category::orderBy('position','ASC')->where('status',1)->get();
+        $genre = Genre::orderBy('id','DESC')->get();
+        $country = Country::orderBy('id','DESC')->get();
+
+        $movie = Movie::with('category','genre','country','movie_genre','episode')->where('slug',$slug)->where('status',1)->first();
+        
+    	
+        if(isset($tap)){
+            $tapphim = $tap;
+            $tapphim = substr($tap,4,1);
+            $episode = Episode::where('movie_id',$movie->id)->where('episode',$tapphim)->first();
+        }else {
+            $tapphim =1;
+            $episode = Episode::where('movie_id',$movie->id)->where('episode',$tapphim)->first();
+        }
+        
+        return view('pages.watch',compact('category','genre','country','movie', 'episode','tapphim'));
     }
     public function episode(){
     	return view('pages.episode');

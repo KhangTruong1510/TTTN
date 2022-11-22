@@ -25,6 +25,10 @@
                         </div>
                        
                         <div class="form-group">
+                            {!! Form::label('sotap', 'Số tập phim', []) !!}
+                            {!! Form::text('sotap', isset($movie) ? $movie->sotap : '', ['class'=>'form-control','placeholder'=>'...']) !!}
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('tên tiếng anh', 'Tên tiếng anh', []) !!}
                             {!! Form::text('name_eng', isset($movie) ? $movie->name_eng : '', ['class'=>'form-control','placeholder'=>'...']) !!}
                         </div>
@@ -69,8 +73,13 @@
                             <!-- {!! Form::select('genre_id', $genre, isset($movie) ? $movie->genre_id : '', ['class'=>'form-control']) !!} 
                         -->
                             @foreach($list_genre as $key => $gen)
-                            {!! Form::checkbox('genre[]', $gen->id) !!}
+                                @if(isset($movie))
+                            {!! Form::checkbox('genre[]', $gen->id, isset($movie_genre) && $movie_genre->contains($gen->id) ? true : false) !!}
+                                @else
+                            {!! Form::checkbox('genre[]', $gen->id, '') !!}
+                                @endif
                             {!! Form::label('genre',$gen->title)    !!}
+                            
                             @endforeach
                         </div>
                         <div class="form-group">

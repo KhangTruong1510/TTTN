@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use App\Models\Episode;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Country;
+use App\Models\Movie_Genre;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use File;
@@ -20,7 +22,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $list = Movie::with('category','genre','country')->orderBy('id','DESC')->get();
+        $list = Movie::with('category','movie_genre','country', 'genre')->orderBy('id','DESC')->get();
        
 
          $path = public_path()."/json/";
@@ -72,6 +74,7 @@ class MovieController extends Controller
         $data = $request->all();
         $movie = new Movie();
         $movie->title = $data['title'];
+        $movie->sotap = $data['sotap'];
         $movie->trailer = $data['trailer'];
         $movie->thoiluong = $data['thoiluong'];
         $movie->phude = $data['phude'];
@@ -82,10 +85,15 @@ class MovieController extends Controller
         $movie->description = $data['description'];
         $movie->status = $data['status'];
         $movie->category_id = $data['category_id'];
-        $movie->genre_id = $data['genre_id'];
+        
         $movie->country_id = $data['country_id'];
         $movie->ngaytao = Carbon::now('Asia/Ho_Chi_Minh');
         $movie->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
+
+        foreach($data['genre'] as $key => $gen) {
+            $movie->genre_id = $gen[0];
+        }
+       
 
         $get_image = $request->file('image');
 
@@ -98,7 +106,10 @@ class MovieController extends Controller
             $movie->image = $new_image;
         }
         $movie->save();
-        return redirect()->back();
+        //them nhieu the laoi cho phim
+        $movie->movie_genre()->attach($data['genre']);
+
+        return redirect()->route('movie.index');
     }
 
     /**
@@ -122,9 +133,11 @@ class MovieController extends Controller
     {
         $category = Category::pluck('title','id');
         $genre = Genre::pluck('title','id');
+        $list_genre = Genre::all();
         $country = Country::pluck('title','id');
         $movie =  Movie::find($id);
-        return view('admincp.movie.form', compact('category','genre','country','movie'));
+        $movie_genre = $movie->movie_genre;
+        return view('admincp.movie.form', compact('category','genre','country','movie', 'list_genre', 'movie_genre'));
     }
 
     /**
@@ -140,7 +153,7 @@ class MovieController extends Controller
         $movie = Movie::find($id);
         $movie->title = $data['title'];
         $movie->resolution = $data['resolution'];
-        
+        $movie->sotap = $data['sotap'];
         $movie->trailer = $data['trailer'];
         $movie->thoiluong = $data['thoiluong'];
         $movie->phude = $data['phude'];
@@ -150,9 +163,12 @@ class MovieController extends Controller
         $movie->description = $data['description'];
         $movie->status = $data['status'];
         $movie->category_id = $data['category_id'];
-        $movie->genre_id = $data['genre_id'];
+       
         $movie->country_id = $data['country_id'];
         $movie->ngaycapnhat = Carbon::now('Asia/Ho_Chi_Minh');
+        foreach($data['genre'] as $key => $gen) {
+            $movie->genre_id = $gen[0];
+        }
 
         $get_image = $request->file('image');
 
@@ -168,7 +184,9 @@ class MovieController extends Controller
             }
         }
         $movie->save();
-        return redirect()->back();
+         //them nhieu the laoi cho phim
+        $movie->movie_genre()->sync($data['genre']);
+        return redirect()->route('movie.index');
     }
 
 
@@ -182,10 +200,17 @@ class MovieController extends Controller
     public function destroy($id)
     {
         $movie = Movie::find($id);
+        //xoas anhr
         if(file_exists('uploads/movie/'.$movie->image)){
             unlink('uploads/movie/'.$movie->image);
         }
+        //xoa the loai
+       Movie_Genre::whereIn('movie_id',[$movie->id])->delete();
         $movie->delete();
+
+        //xoa tap phim
+        Episode::whereIn('movie_id',[$movie->id])->delete();
+
         return redirect()->back();
     }
 }
