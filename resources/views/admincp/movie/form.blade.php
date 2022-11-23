@@ -87,6 +87,10 @@
                             {!! Form::select('phim_hot', ['1'=>'Có','0'=>'Không'], isset($movie) ? $movie->phim_hot : '', ['class'=>'form-control']) !!}
                         </div>
                         <div class="form-group">
+                            {!! Form::label('Phimbo', 'Phim bộ', []) !!}
+                            {!! Form::select('phimbo', ['1'=>'Có','0'=>'Không'], isset($movie) ? $movie->phimbo : '', ['class'=>'form-control']) !!}
+                        </div>
+                        <div class="form-group">
                             {!! Form::label('Image', 'Hình ảnh', []) !!}
                             {!! Form::file('image', ['class'=>'form-control-file']) !!}
                             @if(isset($movie))

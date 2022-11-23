@@ -24,24 +24,21 @@
                   <div class="clearfix wrap-content">
                     
                      <div class="halim-movie-wrapper">
-                        <div class="title-block">
-                           <div id="bookmark" class="bookmark-img-animation primary_ribbon" data-id="38424">
-                              <div class="halim-pulse-ring"></div>
-                           </div>
-                           <div class="title-wrapper" style="font-weight: bold;">
-                              Bookmark
-                           </div>
-                        </div>
+                        
                         <div class="movie_info col-xs-12">
                            <div class="movie-poster col-md-3">
                               <img class="movie-thumb" src="{{asset('uploads/movie/'.$movie->image)}}" alt="{{$movie->title}}">
                               @if($movie->resolution!=5)
+                                 @if($episode_current_list_count>0)
                               <div class="bwa-content">
                                  <div class="loader"></div>
                                  <a href="{{url('xem-phim/'.$movie->slug.'/tap-'.$episode_tapdau->episode )}}" class="bwac-btn">
                                  <i class="fa fa-play"></i>
                                  </a>
                               </div>
+                                 @endif
+                             
+
                               @endif
                            </div>
                            <div class="film-poster col-md-9">
@@ -80,7 +77,7 @@
                                  </span></li>
                                  @endif
                                  <li class="list-info-group-item"><span>Thời lượng</span> : {{$movie->thoiluong}}</li>
-                                 <li class="list-info-group-item"><span>Số tập phim</span> : {{$movie->sotap}}/{{$movie->sotap}}</li>
+                                 <li class="list-info-group-item"><span>Số tập phim</span> : {{$episode_current_list_count}}/{{$movie->sotap}}</li>
                                  <li class="list-info-group-item"><span>Thể loại</span> : 
                                     @foreach($movie->movie_genre as $gen)
                                     <a href="{{route('genre',$gen->slug)}}" rel="category tag">{{$gen->title}}</a>
@@ -122,10 +119,11 @@
                      </div>
                      <div class="entry-content htmlwrap clearfix">
                         <div class="video-item halim-entry-box">
-                           <article id="post-38424" class="item-content">
-                           <iframe width=100% height="315" src="https://www.youtube.com/embed/{{$movie->trailer}}" title="YouTube video player" frameborder="0"
+                        <iframe width=100% height="315" src="https://www.youtube.com/embed/{{$movie->trailer}}" title="YouTube video player" frameborder="0"
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                               
+                           <article id="post-38424" class="item-content">
+                           
                            </article>
                         </div>
                      </div>
@@ -203,7 +201,9 @@
                      <script>
                         $(document).ready(function($) {				
                         var owl = $('#halim_related_movies-2');
-                        owl.owlCarousel({loop: true,margin: 4,autoplay: true,autoplayTimeout: 4000,autoplayHoverPause: true,nav: true,navText: ['<i class="hl-down-open rotate-left"></i>', '<i class="hl-down-open rotate-right"></i>'],responsiveClass: true,responsive: {0: {items:2},480: {items:3}, 600: {items:4},1000: {items: 4}}})});
+                        owl.owlCarousel({loop: true,margin: 4,autoplay: true,autoplayTimeout: 4000,autoplayHoverPause: true,nav: true,
+                           navText: ['<i class="hl-down-open rotate-left"></i>', '<i class="hl-down-open rotate-right"></i>'],
+                           responsiveClass: true,responsive: {0: {items:2},480: {items:3}, 600: {items:4},1000: {items: 4}}})});
                      </script>
                   </div>
                </section>

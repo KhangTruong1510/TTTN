@@ -22,7 +22,7 @@
                         
                         <div class="form-group">
                             {!! Form::label('movie', 'Chọn phim', []) !!}
-                            {!! Form::select('movie_id', $list_movie, isset($episode) ? $episode->movie_id : '', ['class'=>'form-control select-movie']) !!}
+                            {!! Form::select('movie_id',['0'=>'Chọn phim', 'Phim mới nhất'=> $list_movie], isset($episode) ? $episode->movie_id : '', ['class'=>'form-control select-movie']) !!}
                         </div>
 
                         <div class="form-group">

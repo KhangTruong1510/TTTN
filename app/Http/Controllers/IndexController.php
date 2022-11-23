@@ -83,7 +83,11 @@ class IndexController extends Controller
         $related = Movie::with('category','genre','country')->where('category_id',$movie->category->id)->whereNotIn('slug',[$slug])->get();
     	
         $episode = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode', 'DESC')->take(3)->get();
-        return view('pages.movie', compact('category','genre','country','movie','related','episode','episode_tapdau'));
+        
+        $episode_current_list = Episode::with('movie')->where('movie_id',$movie->id)->get();
+        $episode_current_list_count = $episode_current_list->count();
+        
+        return view('pages.movie', compact('category','genre','country','movie','related','episode','episode_tapdau', 'episode_current_list_count'));
     }
     public function watch($slug, $tap){
        
@@ -93,18 +97,18 @@ class IndexController extends Controller
         $country = Country::orderBy('id','DESC')->get();
 
         $movie = Movie::with('category','genre','country','movie_genre','episode')->where('slug',$slug)->where('status',1)->first();
-        
+        $related = Movie::with('category','genre','country')->where('category_id',$movie->category->id)->whereNotIn('slug',[$slug])->get();
     	
         if(isset($tap)){
             $tapphim = $tap;
-            $tapphim = substr($tap,4,1);
+            $tapphim = substr($tap,4,20);
             $episode = Episode::where('movie_id',$movie->id)->where('episode',$tapphim)->first();
         }else {
             $tapphim =1;
             $episode = Episode::where('movie_id',$movie->id)->where('episode',$tapphim)->first();
         }
         
-        return view('pages.watch',compact('category','genre','country','movie', 'episode','tapphim'));
+        return view('pages.watch',compact('category','genre','country','movie', 'episode','tapphim', 'related'));
     }
     public function episode(){
     	return view('pages.episode');

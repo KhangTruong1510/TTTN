@@ -45,8 +45,10 @@
          <div class="container">
             <div class="row" id="headwrap">
                <div class="col-md-3 col-sm-6 slogan">
-                  <p class="site-title"><a class="logo" href="" title="phim hay ">Phim Hay</p>
+                  <p class=""><a class="logo"  href="" title="phim hay ">
+                     <img  src="{{asset('imgs/logo.jpg')}}" alt="LOGO" height="120px" width="120px">
                   </a>
+                  </p>
                </div>
                <div class="col-md-5 col-sm-6 halim-search-form hidden-xs">
                   <div class="header-nav">
@@ -78,12 +80,7 @@
 
                   </div>
                </div>
-               <div class="col-md-4 hidden-xs">
-                  <div id="get-bookmark" class="box-shadow"><i class="hl-bookmark"></i><span> Bookmarks</span><span class="count">0</span></div>
-                  <div id="bookmark-list" class="hidden bookmark-list-on-pc">
-                     <ul style="margin: 0;"></ul>
-                  </div>
-               </div>
+               
             </div>
          </div>
       </header>
@@ -134,9 +131,7 @@
                         
                      </ul>
                   </div>
-                  <ul class="nav navbar-nav navbar-left" style="background:#000;">
-                     <li><a href="#" onclick="locphim()" style="color: #ffed4d;">Lọc Phim</a></li>
-                  </ul>
+                  
                </div>
             </nav>
             <div class="collapse navbar-collapse" id="search-form">
@@ -161,9 +156,9 @@
             <div class="row container">
                <div class="widget about col-xs-12 col-sm-4 col-md-4">
                   <div class="footer-logo">
-                     <img class="img-responsive" src="https://img.favpng.com/9/23/19/movie-logo-png-favpng-nRr1DmYq3SNYSLN8571CHQTEG.jpg" alt="Phim hay 2021- Xem phim hay nhất" />
+                     <img class="img-responsive" src="{{asset('imgs/logo.jpg')}}" alt="Phim hay 2021- Xem phim hay nhất" />
                   </div>
-                  Liên hệ : <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e5958d8c888d849ccb868aa58288848c89cb868a88">[email&#160;protected]</a>
+                  Liên hệ : <a  class="__cf_email__" data-cfemail="e5958d8c888d849ccb868aa58288848c89cb868a88">1951120100@sv.ut.edu.vn</a>
                </div>
             </div>
          </div>

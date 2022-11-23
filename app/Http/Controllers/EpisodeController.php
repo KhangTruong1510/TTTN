@@ -114,8 +114,12 @@ class EpisodeController extends Controller
         $movie = Movie::find($id);
               
         $output = '<option >---Chọn tập phim---</option>';
+        if($movie->phimbo=='1')
         for($i=1;$i<=$movie->sotap;$i++) {
             $output .= '<option value="'.$i.'">'.$i.'</option>';
+        }else{
+            $output .= '<option value="HD">HD</option><option value="FullHD">FullHD</option>';
+           
         }
         echo $output;
     }

@@ -82,6 +82,7 @@ class MovieController extends Controller
         $movie->slug = $data['slug'];
         $movie->name_eng = $data['name_eng'];
         $movie->phim_hot = $data['phim_hot'];
+        $movie->phimbo = $data['phimbo'];
         $movie->description = $data['description'];
         $movie->status = $data['status'];
         $movie->category_id = $data['category_id'];
@@ -160,6 +161,7 @@ class MovieController extends Controller
         $movie->slug = $data['slug'];
         $movie->name_eng = $data['name_eng'];
         $movie->phim_hot = $data['phim_hot'];
+        $movie->phimbo = $data['phimbo'];
         $movie->description = $data['description'];
         $movie->status = $data['status'];
         $movie->category_id = $data['category_id'];

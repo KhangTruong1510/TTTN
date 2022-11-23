@@ -13,6 +13,7 @@
                   <th scope="col">Thời lượng phim</th>
                   <th scope="col">Hình ảnh</th>
                   <th scope="col">Phim hot</th>
+                  <th scope="col">Phim bộ</th>
                   <th scope="col">Định dạng</th>
                   <th scope="col">Phụ đề</th>
                   <!-- <th scope="col">Mô tả</th> -->
@@ -38,6 +39,14 @@
                   <td><img width="100" src="{{asset('uploads/movie/'.$cate->image)}}"></td>
                   <td>
                     @if($cate->phim_hot==0)
+                        Không
+                    @else
+                        Có
+                    @endif
+                  </td>
+
+                  <td>
+                    @if($cate->phimbo==0)
                         Không
                     @else
                         Có
