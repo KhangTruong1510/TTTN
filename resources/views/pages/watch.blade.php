@@ -29,7 +29,9 @@
                   </style>
                   <div class="iframe_phim">
                   {!! $episode->linkphim!!}
+                  
                   </div>
+                
                 
                   <div class="collapse" id="moretool">
                      <ul class="nav nav-pills x-nav-justified">

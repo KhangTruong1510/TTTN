@@ -9,7 +9,7 @@
 
                 
             </div>
-            <table class="table">
+            <table class="table" id="tablephim">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -22,19 +22,19 @@
                 </tr>
               </thead>
               <tbody class="order_position">
-                @foreach($list_episode as $key => $episode)
+                @foreach($list_episode as $key => $epi)
                 <tr >
                   <th scope="row">{{$key}}</th>
-                  <td>{{$episode->movie->title}}</td>
-                  <td><img width="100" src="{{asset('uploads/movie/'.$episode->movie->image)}}"></td>
-                  <td>{{$episode->episode}}</td>
-                  <td>{!!$episode->linkphim!!}</td>
+                  <td>{{$epi->movie->title}}</td>
+                  <td><img width="100" src="{{asset('uploads/movie/'.$epi->movie->image)}}"></td>
+                  <td>{{$epi->episode}}</td>
+                  <td>{!!$epi->linkphim!!}</td>
                  
                   <td>
-                      {!! Form::open(['method'=>'DELETE','route'=>['episode.destroy',$episode->id],'onsubmit'=>'return confirm("Bạn có chắc muốn xóa?")']) !!}
+                      {!! Form::open(['method'=>'DELETE','route'=>['episode.destroy',$epi->id],'onsubmit'=>'return confirm("Bạn có chắc muốn xóa?")']) !!}
                         {!! Form::submit('Xóa', ['class'=>'btn btn-danger']) !!}
                       {!! Form::close() !!}
-                      <a href="{{route('episode.edit',$episode->id)}}" class="btn btn-warning">Sửa</a>
+                      <a href="{{route('episode.edit',$epi->id)}}" class="btn btn-warning">Sửa</a>
                   </td>
                 </tr>
                 @endforeach

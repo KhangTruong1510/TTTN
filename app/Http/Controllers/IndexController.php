@@ -80,6 +80,7 @@ class IndexController extends Controller
         $movie = Movie::with('category','genre','country','movie_genre')->where('slug',$slug)->where('status',1)->first();
         $episode_tapdau = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode','ASC')->take(1)->first();
         
+        
         $related = Movie::with('category','genre','country')->where('category_id',$movie->category->id)->whereNotIn('slug',[$slug])->get();
     	
         $episode = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode', 'DESC')->take(3)->get();
@@ -107,7 +108,8 @@ class IndexController extends Controller
             $tapphim =1;
             $episode = Episode::where('movie_id',$movie->id)->where('episode',$tapphim)->first();
         }
-        
+
+        // dd($movie);        
         return view('pages.watch',compact('category','genre','country','movie', 'episode','tapphim', 'related'));
     }
     public function episode(){

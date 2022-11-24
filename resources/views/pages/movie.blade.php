@@ -155,7 +155,7 @@
                         <article class="thumb grid-item post-38498">
                            <div class="halim-item">
                               <a class="halim-thumb" href="{{route('movie',$hot->slug)}}" title="{{$hot->title}}">
-                                 <figure><img class="lazy img-responsive" src="{{asset('uploads/movie/'.$hot->image)}}" alt="{{$hot->title}}" title="Đại Thánh Vô Song"></figure>
+                                 <figure><img class="lazy img-responsive" src="{{asset('uploads/movie/'.$hot->image)}}" alt="{{$hot->title}}" title="movie_img"></figure>
                                  <span class="status">
                                  @if($hot->resolution==0)
                                        HD
